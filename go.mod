@@ -3,6 +3,7 @@ module github.com/DrxwDev/users-api
 go 1.26.3
 
 require (
+	github.com/alexedwards/argon2id v1.0.0
 	github.com/gin-gonic/gin v1.12.0
 	github.com/google/uuid v1.6.0
 	github.com/jackc/pgx/v5 v5.10.0

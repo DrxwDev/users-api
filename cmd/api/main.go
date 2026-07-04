@@ -7,6 +7,7 @@ import (
 	"github.com/joho/godotenv"
 	"go.uber.org/fx"
 
+	"github.com/DrxwDev/users-api/internal/auth"
 	"github.com/DrxwDev/users-api/internal/config"
 	"github.com/DrxwDev/users-api/internal/database"
 	"github.com/DrxwDev/users-api/internal/logger"
@@ -28,5 +29,6 @@ func main() {
 		logger.Module,
 		server.Module,
 		database.Module,
+		auth.Module,
 	).Run()
 }
