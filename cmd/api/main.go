@@ -4,6 +4,7 @@ import (
 	"log"
 	"os"
 
+	"github.com/gin-gonic/gin"
 	"github.com/joho/godotenv"
 	"go.uber.org/fx"
 
@@ -25,6 +26,10 @@ func init() {
 }
 
 func main() {
+	if os.Getenv("GIN_MODE") == "release" {
+		gin.SetMode(gin.ReleaseMode)
+	}
+
 	fx.New(
 		config.Module,
 		logger.Module,

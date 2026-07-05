@@ -19,4 +19,5 @@ func Routes(router *gin.Engine, controller users.UserController) {
 	apiV1 := router.Group("/api/v1")
 
 	apiV1.POST("/users", controller.CreateUser)
+	apiV1.GET("/users/:id", controller.GetUserByID)
 }

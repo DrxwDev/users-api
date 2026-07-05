@@ -44,3 +44,33 @@ func (c UserController) CreateUser(ctx *gin.Context) {
 		"user":    userDomainToDTO(user),
 	})
 }
+
+func (c UserController) GetUserByID(ctx *gin.Context) {
+	id := ctx.Param("id")
+	if id == "" {
+		ctx.JSON(http.StatusBadRequest, gin.H{
+			"status":  "failed",
+			"message": "id not provided",
+		})
+		return
+	}
+
+	user, err := c.srv.GetUserByID(ctx.Request.Context(), id)
+	if err != nil {
+		ctx.JSON(http.StatusInternalServerError, gin.H{
+			"status":  "failed",
+			"message": "something went wrong, try again.",
+			"error":   err.Error(),
+		})
+		return
+	}
+
+	ctx.JSON(http.StatusOK, gin.H{
+		"status":  "success",
+		"message": "user retrieved successfully",
+		"user":    userDomainToDTO(user),
+	})
+}
+
+func (c UserController) GetUserByEmail(ctx *gin.Context) {
+}
