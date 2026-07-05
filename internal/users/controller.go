@@ -73,4 +73,29 @@ func (c UserController) GetUserByID(ctx *gin.Context) {
 }
 
 func (c UserController) GetUserByEmail(ctx *gin.Context) {
+	var payload UserEmailDTO
+	if err := ctx.ShouldBindJSON(&payload); err != nil {
+		ctx.JSON(http.StatusBadRequest, gin.H{
+			"status":  "failed",
+			"message": "invalid email provided",
+			"error":   err.Error(),
+		})
+		return
+	}
+
+	user, err := c.srv.GetUserByEmail(ctx.Request.Context(), payload.Email)
+	if err != nil {
+		ctx.JSON(http.StatusInternalServerError, gin.H{
+			"status":  "failed",
+			"message": "make sure to provide a valid email",
+			"error":   err.Error(),
+		})
+		return
+	}
+
+	ctx.JSON(http.StatusOK, gin.H{
+		"status":  "success",
+		"message": "user retrieved successfully",
+		"user":    userDomainToDTO(user),
+	})
 }
