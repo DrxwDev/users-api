@@ -3,6 +3,7 @@ package users
 import (
 	"context"
 
+	"github.com/DrxwDev/users-api/internal/auth"
 	errormsg "github.com/DrxwDev/users-api/internal/errorMsg"
 )
 
@@ -13,12 +14,14 @@ type UserService interface {
 }
 
 type service struct {
-	repo UserRepository
+	repo   UserRepository
+	hasher auth.HashService
 }
 
-func NewUserService(repo UserRepository) UserService {
+func NewUserService(repo UserRepository, hasher auth.HashService) UserService {
 	return &service{
-		repo: repo,
+		repo:   repo,
+		hasher: hasher,
 	}
 }
 
@@ -37,6 +40,12 @@ func (s service) CreateUser(ctx context.Context, params CreateUserParams) (User,
 	if err != nil {
 		return User{}, err
 	}
+
+	hash, err := s.hasher.Hash(params.Password)
+	if err != nil {
+		return User{}, err
+	}
+	params.Password = hash
 
 	user, err := s.repo.CreateUser(ctx, params)
 	if err != nil {

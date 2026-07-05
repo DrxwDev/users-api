@@ -4,19 +4,15 @@ import (
 	"net/http"
 
 	"github.com/gin-gonic/gin"
-
-	"github.com/DrxwDev/users-api/internal/auth"
 )
 
 type UserController struct {
-	srv    UserService
-	hasher auth.HashService
+	srv UserService
 }
 
-func NewUserController(srv UserService, hasher auth.HashService) UserController {
+func NewUserController(srv UserService) UserController {
 	return UserController{
-		srv:    srv,
-		hasher: hasher,
+		srv: srv,
 	}
 }
 
