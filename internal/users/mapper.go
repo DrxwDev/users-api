@@ -33,7 +33,7 @@ func userParamsToDB(params CreateUserParams) database.SaveParams {
 	}
 }
 
-func userParamsToDomain(params UserRequest) CreateUserParams {
+func userRequestToDomain(params UserRequest) CreateUserParams {
 	return CreateUserParams(params)
 }
 

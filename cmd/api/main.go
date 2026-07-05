@@ -12,6 +12,7 @@ import (
 	"github.com/DrxwDev/users-api/internal/database"
 	"github.com/DrxwDev/users-api/internal/logger"
 	"github.com/DrxwDev/users-api/internal/server"
+	"github.com/DrxwDev/users-api/internal/users"
 )
 
 func init() {
@@ -30,5 +31,6 @@ func main() {
 		server.Module,
 		database.Module,
 		auth.Module,
+		users.Module,
 	).Run()
 }
