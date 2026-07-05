@@ -42,6 +42,6 @@ func userDomainToDTO(user User) UserResponse {
 		ID:        user.ID,
 		Email:     user.Email,
 		CreatedAt: user.CreatedAt,
-		UpdatedAt: user.Password,
+		UpdatedAt: user.UpdatedAt,
 	}
 }
